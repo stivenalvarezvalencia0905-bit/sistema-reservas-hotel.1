@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Sistema de Reserva Hotel</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- ICONOS PROFESIONALES -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<header class="header">
+    <h1>🏨 Sistema de Reservas</h1>
+    <div id="usuarioLogueado"></div>
+</header>
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <button onclick="mostrarSeccion('login')">
+            <i class="fa-solid fa-lock"></i> Login
+        </button>
+        <button onclick="mostrarSeccion('inicio')">
+            <i class="fa-solid fa-house"></i> Inicio
+        </button>
+        <button onclick="mostrarSeccion('dashboard')">
+            <i class="fa-solid fa-chart-line"></i> Dashboard
+        </button>
+        <button onclick="mostrarSeccion('habitaciones')">
+            <i class="fa-solid fa-bed"></i> Habitaciones
+        </button>
+        <button onclick="mostrarSeccion('clientes')">
+            <i class="fa-solid fa-users"></i> Clientes
+        </button>
+        <button onclick="mostrarSeccion('reservas')">
+            <i class="fa-solid fa-calendar-check"></i> Reservas
+        </button>
+        <button onclick="mostrarSeccion('agenda')">
+            <i class="fa-solid fa-clipboard-list"></i> Agenda
+        </button>
+        <button onclick="cerrarSesion()">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesión
+        </button>
+    </aside>
+
+    <main class="content">
+
+        <!-- LOGIN -->
+        <section id="login" class="seccion">
+            <h2>Login</h2>
+            <input id="email" placeholder="Correo">
+            <input id="password" type="password" placeholder="Contraseña">
+            <button onclick="login()">Ingresar</button>
+            <p id="mensajeLogin"></p>
+        </section>
+
+        <!-- INICIO -->
+        <section id="inicio" class="seccion">
+            <h2>Bienvenido</h2>
+            <p>Sistema de gestión hotelera profesional</p>
+        </section>
+
+        <!-- HABITACIONES -->
+        <section id="habitaciones" class="seccion">
+            <h2>Habitaciones</h2>
+
+            <input id="numero" placeholder="Número">
+            <input id="tipo" placeholder="Tipo">
+            <input id="precio" placeholder="Precio">
+            <button onclick="guardarHabitacion()">Guardar</button>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Tipo</th>
+                        <th>Precio</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaHabitaciones"></tbody>
+            </table>
+        </section>
+
+        <!-- CLIENTES -->
+        <section id="clientes" class="seccion">
+            <h2>Clientes</h2>
+
+            <input id="nombreCliente" placeholder="Nombre">
+            <input id="emailCliente" placeholder="Email">
+            <input id="passwordCliente" placeholder="Contraseña">
+            <button onclick="guardarCliente()">Guardar</button>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaClientes"></tbody>
+            </table>
+        </section>
+
+        <!-- RESERVAS (UNA SOLA VEZ) -->
+        <section id="reservas" class="seccion">
+            <h2>📅 Reservas</h2>
+
+            <div class="form-reserva">
+                <select id="reservaCliente"></select>
+
+                <input type="date" id="fechaIngreso">
+                <input type="date" id="fechaSalida">
+
+                <button class="btn-buscar" onclick="buscarHabitaciones()">
+                    <i class="fa-solid fa-magnifying-glass"></i> Buscar habitaciones
+                </button>
+
+                <select id="reservaHabitacion"></select>
+
+                <button class="btn-reservar" onclick="crearReserva()">
+                    <i class="fa-solid fa-circle-check"></i> Reservar
+                </button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Habitación</th>
+                        <th>Ingreso</th>
+                        <th>Salida</th>
+                        <th>Estado</th>
+                        <th>Acción</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaReservas"></tbody>
+            </table>
+        </section>
+
+        <!-- DASHBOARD -->
+        <section id="dashboard" class="seccion">
+            <h2>Dashboard</h2>
+
+            <div class="cards">
+                <div class="card">
+                    <h3>Total</h3>
+                    <p id="totalReservas">0</p>
+                </div>
+                <div class="card activa">
+                    <h3>Activas</h3>
+                    <p id="reservasActivas">0</p>
+                </div>
+                <div class="card cancelada">
+                    <h3>Canceladas</h3>
+                    <p id="reservasCanceladas">0</p>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Habitación</th>
+                        <th>Ingreso</th>
+                        <th>Salida</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaDashboard"></tbody>
+            </table>
+        </section>
+
+        <!-- AGENDA -->
+        <section id="agenda" class="seccion">
+            <h2>Agenda</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Habitación</th>
+                        <th>Ingreso</th>
+                        <th>Salida</th>
+                        <th>Cliente</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaAgenda"></tbody>
+            </table>
+        </section>
+
+    </main>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
