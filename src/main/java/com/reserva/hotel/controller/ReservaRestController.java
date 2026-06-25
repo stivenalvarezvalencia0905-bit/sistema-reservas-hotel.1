@@ -3,6 +3,8 @@ package com.reserva.hotel.controller;
 import com.reserva.hotel.dto.ReservaDTO;
 import com.reserva.hotel.model.Reserva;
 import com.reserva.hotel.service.ReservaService;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -21,14 +23,17 @@ public class ReservaRestController {
 
     // ✅ CREAR RESERVA
     @PostMapping
-    public Reserva crear(@RequestBody ReservaDTO dto) {
+    public ResponseEntity<?> crear(@RequestBody ReservaDTO dto) {
 
-        return reservaService.crearReserva(
-                dto.getClienteId(),
-                dto.getHabitacionId(),
-                dto.getFechaIngreso(),   // ✅ YA ES LocalDate
-                dto.getFechaSalida()     // ✅ YA ES LocalDate
-        );
+    reservaService.crearReserva(
+            dto.getClienteId(),
+            dto.getHabitacionId(),
+            dto.getFechaIngreso(),
+            dto.getFechaSalida()
+    );
+
+    return ResponseEntity.ok("Reserva creada correctamente");
+
     }
 
     // 📋 LISTAR TODAS
@@ -43,8 +48,19 @@ public class ReservaRestController {
         return reservaService.reservasPorCliente(email);
     }
 
-    // 📅 ENTRE FECHAS
-    @GetMapping("/calendario")
+    // 📆 CALENDARIO MENSUAL (NUEVO – SIN CONFLICTO)
+    @GetMapping("/calendario-mensual")
+    public List<Reserva> calendarioMes(
+            @RequestParam int mes,
+            @RequestParam int anio
+    ) {
+        LocalDate inicio = LocalDate.of(anio, mes, 1);
+        LocalDate fin = inicio.withDayOfMonth(inicio.lengthOfMonth());
+        return reservaService.reservasEntreFechas(inicio, fin);
+    }
+
+    // 📅 ENTRE FECHAS (BUSCADOR AVANZADO)
+    @GetMapping("/entre-fechas")
     public List<Reserva> reservasEntreFechas(
             @RequestParam
             @org.springframework.format.annotation.DateTimeFormat(

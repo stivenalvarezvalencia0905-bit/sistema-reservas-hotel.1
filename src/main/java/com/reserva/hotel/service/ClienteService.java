@@ -39,8 +39,13 @@ public class ClienteService {
 
     // LOGIN
     public Cliente login(String email, String password) {
+
+        if (email == null || password == null) {
+            throw new RuntimeException("Email o password vacío");
+        }
+
         Cliente cliente = clienteRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Usuario no registrado"));
+                .orElseThrow(() -> new RuntimeException("Usuario no existe"));
 
         if (!cliente.getPassword().equals(password)) {
             throw new RuntimeException("Contraseña incorrecta");

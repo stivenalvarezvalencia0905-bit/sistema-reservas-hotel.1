@@ -12,7 +12,7 @@
 <body>
 
 <header class="header">
-    <h1>🏨 Sistema de Reservas</h1>
+    <h1>🏨 Sistema de Reservas de Hotel en Linea</h1>
     <div id="usuarioLogueado"></div>
 </header>
 
@@ -64,27 +64,37 @@
         </section>
 
         <!-- HABITACIONES -->
-        <section id="habitaciones" class="seccion">
-            <h2>Habitaciones</h2>
+<section id="habitaciones" class="seccion">
+    <h2>🏨 Habitaciones</h2>
 
-            <input id="numero" placeholder="Número">
-            <input id="tipo" placeholder="Tipo">
-            <input id="precio" placeholder="Precio">
-            <button onclick="guardarHabitacion()">Guardar</button>
+    <!-- FORMULARIO (ADMIN) -->
+    <div id="formHabitaciones">
+        <input id="numero" placeholder="Número">
+        <input id="tipo" placeholder="Tipo">
+        <input id="precio" placeholder="Precio">
+        <button id="btnGuardarHabitacion" onclick="guardarHabitacion()">
+            Guardar
+        </button>
+    </div>
 
-            <table>
-                <thead>
-                    <tr>
-                        <th>Número</th>
-                        <th>Tipo</th>
-                        <th>Precio</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaHabitaciones"></tbody>
-            </table>
-        </section>
+    <!-- TABLA (ADMIN / RECEPCIÓN) -->
+    <table id="tablaHabitacionesWrapper">
+        <thead>
+            <tr>
+                <th>Número</th>
+                <th>Tipo</th>
+                <th>Precio</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody id="tablaHabitaciones"></tbody>
+    </table>
 
+    <!-- CARDS (CLIENTE / MOBILE) -->
+<div class="habitaciones-grid" id="cardsHabitaciones">
+    <!-- tarjetas dinámicas -->
+</div>
+</section>
         <!-- CLIENTES -->
         <section id="clientes" class="seccion">
             <h2>Clientes</h2>
@@ -92,8 +102,7 @@
             <input id="nombreCliente" placeholder="Nombre">
             <input id="emailCliente" placeholder="Email">
             <input id="passwordCliente" placeholder="Contraseña">
-            <button onclick="guardarCliente()">Guardar</button>
-
+            <button id="btnGuardarCliente" onclick="guardarCliente()">Guardar</button>
             <table>
                 <thead>
                     <tr>
@@ -143,24 +152,24 @@
         </section>
 
         <!-- DASHBOARD -->
-        <section id="dashboard" class="seccion">
-            <h2>Dashboard</h2>
+         <section id="dashboard" class="seccion">
+    <h2>Dashboard</h2>
 
-            <div class="cards">
-                <div class="card">
-                    <h3>Total</h3>
-                    <p id="totalReservas">0</p>
-                </div>
-                <div class="card activa">
-                    <h3>Activas</h3>
-                    <p id="reservasActivas">0</p>
-                </div>
-                <div class="card cancelada">
-                    <h3>Canceladas</h3>
-                    <p id="reservasCanceladas">0</p>
-                </div>
-            </div>
-
+    <div class="cards">
+        <div class="card">
+            <h3>Total</h3>
+            <p id="totalReservas">0</p>
+        </div>
+        <div class="card activa">
+            <h3>Activas</h3>
+            <p id="reservasActivas">0</p>
+        </div>
+        <div class="card cancelada">
+            <h3>Canceladas</h3>
+            <p id="reservasCanceladas">0</p>
+        </div>
+    </div>
+        
             <table>
                 <thead>
                     <tr>
@@ -176,24 +185,33 @@
         </section>
 
         <!-- AGENDA -->
-        <section id="agenda" class="seccion">
-            <h2>Agenda</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Habitación</th>
-                        <th>Ingreso</th>
-                        <th>Salida</th>
-                        <th>Cliente</th>
-                    </tr>
-                </thead>
-                <tbody id="tablaAgenda"></tbody>
-            </table>
-        </section>
+         <section id="agenda" class="seccion">
+    <h2>📋 Agenda de Reservas</h2>
 
-    </main>
-</div>
+    <div class="calendario-controles">
+        <button onclick="vistaMensual()">📆 Mensual</button>
+        <button onclick="vistaSemanal()">📅 Semanal</button>
 
+        <input type="month" id="mesCalendario" required>
+        <input type="week" id="semanaCalendario" style="display:none" required>
+
+        <button onclick="cargarCalendario()">Ver</button>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Habitación</th>
+                <th>Ingreso</th>
+                <th>Salida</th>
+                <th>Cliente</th>
+            </tr>
+        </thead>
+        <tbody id="tablaAgenda"></tbody>
+    </table>
+</section>
+       
 <script src="app.js"></script>
+<img src="/img/habitacion1.jpg">
 </body>
 </html>

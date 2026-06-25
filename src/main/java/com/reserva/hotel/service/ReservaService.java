@@ -17,18 +17,21 @@ public class ReservaService {
     private final ReservaRepository reservaRepository;
     private final ClienteRepository clienteRepository;
     private final HabitacionRepository habitacionRepository;
+    private final EmailService emailService;
 
     public ReservaService(
             ReservaRepository reservaRepository,
             ClienteRepository clienteRepository,
-            HabitacionRepository habitacionRepository
+            HabitacionRepository habitacionRepository,
+            EmailService emailService
     ) {
         this.reservaRepository = reservaRepository;
         this.clienteRepository = clienteRepository;
         this.habitacionRepository = habitacionRepository;
+        this.emailService = emailService;
     }
 
-    // ✅ CREAR RESERVA (ESTABLE)
+    // ✅ CREAR RESERVA
     public Reserva crearReserva(
             Long clienteId,
             Long habitacionId,
@@ -52,12 +55,25 @@ public class ReservaService {
         habitacion.setEstado("OCUPADA");
         habitacionRepository.save(habitacion);
 
- reservaRepository.save(reserva);
+        reservaRepository.save(reserva);
 
-System.out.println("📧 Email enviado al cliente: Reserva CONFIRMADA");
+        // 📧 CORREO CONFIRMACIÓN (NO BLOQUEANTE)
+        try {
+    emailService.enviarCorreo(
+            cliente.getEmail(),
+            "Reserva confirmada",
+            "Hola " + cliente.getNombre() +
+                    "\n\nTu reserva fue confirmada exitosamente." +
+                    "\nHabitación: " + habitacion.getNumero() +
+                    "\nIngreso: " + ingreso +
+                    "\nSalida: " + salida
+    );
+} catch (Exception e) {
+    System.out.println("⚠️ Error enviando correo: " + e.getMessage());
+}
+
 return reserva;
 
-      
     }
 
     // 📋 LISTAR TODAS
@@ -65,7 +81,7 @@ return reserva;
         return reservaRepository.findAll();
     }
 
-    // ❌ ELIMINAR
+    // ❌ CANCELAR RESERVA
     public void eliminarReserva(Long id) {
 
         Reserva reserva = reservaRepository.findById(id)
@@ -74,13 +90,22 @@ return reserva;
         Habitacion habitacion = reserva.getHabitacion();
         habitacion.setEstado("DISPONIBLE");
         habitacionRepository.save(habitacion);
+        
 
         reservaRepository.delete(reserva);
-        reservaRepository.delete(reserva);
 
-System.out.println("📧 Email enviado al cliente: Reserva CANCELADA");
-
+        // 📧 CORREO CANCELACIÓN (NO BLOQUEANTE)
+        try {
+        emailService.enviarCorreo(
+                reserva.getCliente().getEmail(),
+                "Reserva cancelada",
+                "Tu reserva con ID " + reserva.getId() +
+                        " ha sido cancelada.\n\nGracias por usar el sistema."
+        );
+    } catch (Exception e) {
+        System.out.println("⚠️ Error enviando correo: " + e.getMessage());
     }
+}
 
     // 📊 RESERVAS POR CLIENTE
     public List<Reserva> reservasPorCliente(String email) {

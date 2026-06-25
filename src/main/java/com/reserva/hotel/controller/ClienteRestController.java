@@ -4,6 +4,9 @@ import com.reserva.hotel.dto.LoginRequest;
 import com.reserva.hotel.dto.LoginResponse;
 import com.reserva.hotel.model.Cliente;
 import com.reserva.hotel.service.ClienteService;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,19 +50,28 @@ public class ClienteRestController {
        🔐 LOGIN
     ========================= */
     @PostMapping("/login")
-public LoginResponse login(@RequestBody LoginRequest request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest request) {
 
-    Cliente cliente = clienteService.login(
-            request.getEmail(),
-            request.getPassword()
-    );
+    try {
+        Cliente cliente = clienteService.login(
+                request.getEmail(),
+                request.getPassword()
+        );
 
-    return new LoginResponse(
-            cliente.getId(),
-            cliente.getEmail(),
-            cliente.getRol(),
-            cliente.getNombre()
-    );
+        return ResponseEntity.ok(
+                new LoginResponse(
+                        cliente.getId(),
+                        cliente.getEmail(),
+                        cliente.getRol(),
+                        cliente.getNombre()
+                )
+        );
+
+    } catch (RuntimeException e) {
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
+                .body(e.getMessage());
+    }
 }
 
     /* =========================

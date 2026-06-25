@@ -1,258 +1,511 @@
-/* ===============================
-   RESET
-================================ */
-* {
-    box-sizing: border-box;
+/* =====================================
+   RESET GENERAL
+===================================== */
+* { 
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    box-sizing: border-box;
 }
 
+/* =====================================
+   BODY
+===================================== */
 body {
-    background: #f4f6f8;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f3f3f3;
     color: #333;
 }
 
-/* ===============================
+/* =====================================
    HEADER
-================================ */
-.header {
-    background: #1e88e5;
-    color: white;
+===================================== */
+header {
+    background-color: #f7c34d;
     padding: 15px 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.header h1 {
-    font-size: 20px;
-}
-
-#usuarioLogueado {
+header h1 {
+    font-size: 22px;
     font-weight: bold;
 }
 
-/* ===============================
-   LAYOUT
-================================ */
-.layout {
-    display: flex;
-    min-height: calc(100vh - 60px);
-}
-
-/* ===============================
-   SIDEBAR
-================================ */
-.sidebar {
-    width: 220px;
-    background: #263238;
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-.sidebar button {
-    background: #37474f;
+header button {
+    background: #000;
     color: #fff;
     border: none;
-    padding: 12px;
-    text-align: left;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background 0.3s;
-    font-size: 14px;
-}
-
-.sidebar button:hover {
-    background: #455a64;
-}
-
-/* ===============================
-   CONTENT
-================================ */
-.content {
-    flex: 1;
-    padding: 25px;
-}
-
-/* ===============================
-   SECCIONES
-================================ */
-.seccion {
-    display: none;
-}
-
-.seccion.activa {
-    display: block;
-}
-
-h2 {
-    margin-bottom: 15px;
-    color: #1e88e5;
-}
-
-/* ===============================
-   INPUTS / SELECTS
-================================ */
-input, select {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 6px;
-    margin-bottom: 10px;
-}
-
-input:focus, select:focus {
-    outline: none;
-    border-color: #1e88e5;
-}
-
-/* ===============================
-   BOTONES
-================================ */
-button {
     padding: 8px 14px;
-    border: none;
-    border-radius: 4px;
     cursor: pointer;
+    border-radius: 4px;
+} 
+
+/* =====================================
+   CONTENEDORES
+===================================== */
+.container {
+    padding: 20px;
 }
+
+.section {
+    background: #fff;
+    padding: 20px;
+    border-radius: 6px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.section h2 {
+    margin-bottom: 15px;
+} 
+
+/* =====================================
+   FORMULARIOS
+===================================== */
+input, select, button {
+    padding: 8px;
+    margin: 6px 0;
+    width: 100%;
+}
+
+button { 
+    background: #f7c34d;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+} 
 
 button:hover {
-    opacity: 0.9;
+    background: #e6b640;
 }
 
-.btn-buscar {
-    background: #546e7a;
-    color: white;
-}
-
-.btn-reservar {
-    background: #2e7d32;
-    color: white;
-}
-
-.btn-cancelar {
-    background: #c62828;
-    color: white;
-}
-
-/* ===============================
-   FORM RESERVA
-================================ */
-.form-reserva {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-bottom: 15px;
-}
-
-/* ===============================
+/* =====================================
    TABLAS
-================================ */
+===================================== */
 table {
     width: 100%;
-    border-collapse: collapse;
-    background: white;
+    border-collapse: collapse; 
     margin-top: 10px;
 }
 
-thead {
-    background: #eceff1;
+table thead {
+    background-color: #eee;
 }
 
-th, td {
-    border: 1px solid #ddd;
+table th,
+table td {
     padding: 10px;
+    border-bottom: 1px solid #ddd;
     text-align: center;
-    font-size: 14px;
 }
 
-th {
-    font-weight: bold;
+table tr:hover {
+    background-color: #fafafa;
 }
 
-/* ===============================
-   ESTADOS
-================================ */
-.disponible {
-    color: #2e7d32;
-    font-weight: bold;
+/* =====================================
+   BOTONES ACCIÓN
+===================================== */
+.btn-cancelar {
+    background: #dc3545;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
 }
 
-.ocupada {
-    color: #c62828;
-    font-weight: bold;
+.btn-cancelar:hover {
+    background: #bb2d3b;
 }
 
-.activa {
-    color: #2e7d32;
-    font-weight: bold;
+/* =====================================
+   BADGES (ESTADO)
+   DISPONIBLE / OCUPADA / RESERVADA
+===================================== */
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    border-radius: 999px;
+    text-transform: uppercase;
 }
 
-.cancelada {
-    color: #c62828;
-    font-weight: bold;
+/* DISPONIBLE */
+.badge-disponible {
+    background: #e6f9ed;
+    color: #008009;
+    border: 1px solid #b7e4c7;
 }
 
-.estado-disponible {
-    color: #2e7d32;
-    font-weight: bold;
-    background-color: #e8f5e9;
+/* OCUPADA */
+.badge-ocupada {
+    background: #fdecea;
+    color: #d4111e;
+    border: 1px solid #f5c6cb;
 }
 
-.estado-ocupada {
-    color: #c62828;
-    font-weight: bold;
-    background-color: #ffebee;
+/* RESERVADA */
+.badge-reservada {
+    background: #fff4cc;
+    color: #946200;
+    border: 1px solid #ffe08a;
 }
 
-/* ===============================
-   DASHBOARD CARDS
-================================ */
-.cards {
+/* =====================================
+   DASHBOARD
+===================================== */
+.dashboard {
     display: flex;
     gap: 15px;
     margin-bottom: 20px;
 }
 
 .card {
-    background: white;
+    background: #fff;
     padding: 15px;
     border-radius: 6px;
-    width: 180px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 1;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
 .card h3 {
     font-size: 14px;
-    color: #555;
+    color: #777;
 }
 
-.card p {
+.card span {
     font-size: 26px;
     font-weight: bold;
 }
 
-.card.activa {
-    border-left: 5px solid #2e7d32;
+/* =====================================
+   AGENDA / CALENDARIO
+===================================== */
+.agenda {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-top: 10px;
 }
 
-.card.cancelada {
-    border-left: 5px solid #c62828;
+.dia {
+    background: #fff;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+.dia h4 {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+
+/* =====================================
+   LOGIN
+===================================== */
+.login {
+    max-width: 350px;
+    margin: 80px auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.login h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+@media (max-width: 768px) {
+    .dashboard {
+        flex-direction: column;
+    }
+
+    table th, table td {
+        font-size: 12px;
+        padding: 6px;
+    }
+}
+
+/* =========================
+   TARJETAS HABITACIONES
+========================= */
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.card-habitacion {
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    transition: transform 0.2s ease;
+}
+
+.card-habitacion:hover {
+    transform: translateY(-5px);
+}
+
+.card-habitacion img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 15px;
+}
+
+.card-body h3 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.card-body p {
+    margin: 6px 0;
+    color: #555;
+    font-size: 14px;
+}
+
+.card-precio {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+/* BADGES */
+.badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge-disponible {
+    background: #d4edda;
+    color: #155724;
+}
+
+.badge-ocupada {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.badge {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 13px;
+}
+
+.badge-disponible {
+    background: #e8f5e9;
+    color: #2e7d32;
+}
+
+.badge-ocupada {
+    background: #ffebee;
+    color: #c62828;
+}
+
+.badge-activa {
+    background: #e3f2fd;
+    color: #1565c0;
+}
+
+.badge-cancelada {
+    background: #fbe9e7;
+    color: #d84315;
+}
+
+/* BOTÓN */
+.btn-reservar {
+    width: 100%;
+    padding: 10px;
+    background: #f7c34d;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-reservar:hover {
+    background: #e0ae3c;
 }
 
 /* ===============================
-   LOGIN
+   RESPONSIVE MOBILE
 ================================ */
-#login input {
-    display: block;
-    width: 260px;
+@media (max-width: 768px) {
+
+    /* HEADER */
+    .header {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    /* LAYOUT */
+    .layout {
+        flex-direction: column;
+    }
+
+    /* SIDEBAR -> MENU SUPERIOR */
+    .sidebar {
+        width: 100%;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .sidebar button {
+        flex: 1 1 45%;
+        text-align: center;
+        font-size: 13px;
+        padding: 10px;
+    }
+
+    /* CONTENT */
+    .content {
+        padding: 15px;
+    }
+
+    /* FORMULARIOS */
+    .form-reserva,
+    .calendario-controles {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    input, select, button {
+        width: 100%;
+        margin-right: 0;
+    }
+
+    /* TABLAS */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+        font-size: 13px;
+    }
+
+    th, td {
+        padding: 8px;
+    }
+
+    /* DASHBOARD CARDS */
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* BOTONES */
+    button {
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    /* BADGES */
+    .badge {
+        font-size: 12px;
+        padding: 4px 8px;
+    }
 }
 
-#mensajeLogin {
-    margin-top: 10px;
-    color: red;
+.habitaciones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 15px;
+}
+
+.habitacion-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+}
+
+.habitacion-card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+}
+
+.habitacion-card .info {
+    padding: 15px;
+}
+
+.habitacion-card h4 {
+    margin-bottom: 6px;
+}
+
+.habitacion-card p {
+    font-size: 14px;
+    color: #555;
+} 
+
+/* ===============================
+   DASHBOARD PROFESIONAL
+================================ */
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Línea lateral */
+.card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 6px;
+    height: 100%;
+    background: #2563eb; /* Total */
+}
+
+/* Estados */
+.card.activa::before {
+    background: #16a34a; /* Verde */
+}
+
+.card.cancelada::before {
+    background: #dc2626; /* Rojo */
+}
+
+.card h3 {
+    font-size: 14px;
+    color: #64748b;
+    margin-bottom: 6px;
+}
+
+.card p {
+    font-size: 36px;
     font-weight: bold;
+    color: #0f172a;
 }
